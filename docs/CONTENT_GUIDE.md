@@ -12,7 +12,7 @@
 
 | Asset | Source | License | Allows commercial web use? |
 |---|---|---|---|
-| (fill in) | | | |
+| Z-Anatomy body parts (FBX, adapted into our `body.glb`) | https://github.com/LluisV/Z-Anatomy | CC BY-SA 4.0 | Yes, with credit page + adapted file shared under CC BY-SA 4.0 |
 
 ## Stance page sections
 1. Name, native name, style

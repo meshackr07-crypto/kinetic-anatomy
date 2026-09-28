@@ -5,7 +5,7 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 
 ## Decisions Jason must make (blocks some tasks)
 
-- [ ] D-1: Where does the 3D body model come from? Options: buy a licensed anatomy model, commission one, or start with a free rigged human and add muscle meshes later. Blocks T-030.
+- [x] D-1: Where does the 3D body model come from? DECIDED 2026-09-28: Z-Anatomy meshes (CC BY-SA 4.0, commercial OK with credit + share-alike) + our own Blender armature. See `docs/3D_MODEL_PLAN.md`. Blocks T-030.
 - [ ] D-2: Who reviews anatomy content for accuracy (physiotherapist, sports scientist, anatomy teacher)? Blocks publishing.
 - [ ] D-3: Which martial arts first? Suggested start: Karate, Taekwondo, Muay Thai, BJJ, Boxing. Blocks T-040.
 - [ ] D-4: Free, paid, or both? Affects Phase 6.
@@ -60,8 +60,9 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 
 ### Model pipeline (from `docs/3D_MODEL_PLAN.md`; needs D-1 approval first)
 
-- [ ] T-025: Download Z-Anatomy `.blend`, keep skin + 24 starter muscles + major bones, decimate to <100k triangles.
+- [x] T-025: Download Z-Anatomy FBX parts (Drive `.blend` skipped — repo FBX is scriptable), keep skin + 25 muscle meshes + 10 bone meshes, decimate.
   Done when: cleaned `.blend` opens with named meshes; asset recorded in `docs/CONTENT_GUIDE.md`.
+  (Done 2026-09-28: `assets-raw/body_work.blend`, 36 meshes, 113,327 tris — slightly over the 100k target, second pass at T-028. Previews verified by render.)
 - [ ] T-026: Build the armature (one bone per `joints` entry) and freeze the bone/mesh naming convention.
   Done when: `joints.bone_name` and `muscles.mesh_name` lists are frozen and match the `.blend`.
 - [ ] T-027: Skin muscles to the armature, export `public/models/body.glb` with Blender headless (`-b -P`).
@@ -131,3 +132,4 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - 2026-09-28, T-003: local git repo initialized and committed; pushed to https://github.com/meshackr07-crypto/kinetic-anatomy (public, no secrets).
 - 2026-09-28, D-1 research: `docs/3D_MODEL_PLAN.md` written (Z-Anatomy CC BY-SA 4.0 recommended; no model downloaded); pipeline tasks T-025–T-029 added under Phase 3.
 - 2026-09-28, T-004: Vercel project `kinetic-anatomy` created and starter deployed; public URL https://kinetic-anatomy-jessy16.vercel.app returns 200.
+- 2026-09-28, T-025: Z-Anatomy FBX sets downloaded (muscles 686, bones 1952, regions 301 parts; 0 armatures — own rig confirmed needed); built `assets-raw/body_work.blend` (25 muscles + 10 bones + skin = 36 meshes, 113,327 tris); Blender 5.2 portable installed to `tools/`; pipeline scripts in `scripts/blender/`.

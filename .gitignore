@@ -33,6 +33,10 @@ yarn-error.log*
 .env*
 !.env.example
 
+# raw 3D downloads and local tools (large, never commit; see docs/3D_MODEL_PLAN.md)
+/assets-raw/
+/tools/
+
 # vercel
 .vercel
 

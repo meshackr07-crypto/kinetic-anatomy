@@ -21,8 +21,9 @@ triangles, smooth on a mid-range phone.
 - Formats available: `.blend` (from the author's Google Drive folder) and
   FBX (in the GitHub repo under `Resources/Models/FBX`).
 - Rig: ships as **static meshes, no skeleton/armature included**
-  (no rig found on the official pages — confirm again right after download;
-  treat as UNVERIFIED until the file is opened in Blender).
+  (VERIFIED 2026-09-28: inspected all four FBX files in Blender —
+  0 armatures; meshes carry `.l`/`.r` side variants for muscles and
+  mirrored `.s`/`.t` variants for bones. Our own armature is required.)
 - License (quoted from the official GitHub README and LICENSE file):
   **"Creative Commons Attribution-ShareAlike 4.0 International License"**
   (CC BY-SA 4.0).
