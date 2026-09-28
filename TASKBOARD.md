@@ -19,8 +19,12 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - [x] T-003: Create GitHub repo, push code.
   Done when: code is visible on GitHub and `.env.local` is not.
   (Pushed to https://github.com/meshackr07-crypto/kinetic-anatomy on 2026-09-28; no secrets in repo.)
-- [ ] T-004: Create Vercel project linked to the repo. Deploy the starter.
+- [x] T-004: Create Vercel project linked to the repo. Deploy the starter.
   Done when: a public `.vercel.app` URL loads.
+  (Live at https://kinetic-anatomy-jessy16.vercel.app since 2026-09-28. Note:
+  the short alias kinetic-anatomy.vercel.app is taken by someone else and 404s;
+  the `-jessy16` URL is the public one. CLI deploys for now; GitHub auto-deploy
+  wiring is still open.)
 - [ ] T-005: Create Supabase project. Fill `.env.local` and Vercel environment variables.
   Done when: a test query from a server component returns without error.
 
@@ -126,3 +130,4 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - 2026-09-28, T-002: shadcn/ui (manual setup, CLI blocked by npm 11 scripts policy), Zod, Zustand, Vitest, Playwright installed; `typecheck`/`test` scripts added; lint, typecheck, 2 tests pass.
 - 2026-09-28, T-003: local git repo initialized and committed; pushed to https://github.com/meshackr07-crypto/kinetic-anatomy (public, no secrets).
 - 2026-09-28, D-1 research: `docs/3D_MODEL_PLAN.md` written (Z-Anatomy CC BY-SA 4.0 recommended; no model downloaded); pipeline tasks T-025–T-029 added under Phase 3.
+- 2026-09-28, T-004: Vercel project `kinetic-anatomy` created and starter deployed; public URL https://kinetic-anatomy-jessy16.vercel.app returns 200.
