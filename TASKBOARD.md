@@ -21,10 +21,11 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
   (Pushed to https://github.com/meshackr07-crypto/kinetic-anatomy on 2026-09-28; no secrets in repo.)
 - [x] T-004: Create Vercel project linked to the repo. Deploy the starter.
   Done when: a public `.vercel.app` URL loads.
-  (Live at https://kinetic-anatomy-jessy16.vercel.app since 2026-09-28. Note:
-  the short alias kinetic-anatomy.vercel.app is taken by someone else and 404s;
-  the `-jessy16` URL is the public one. CLI deploys for now; GitHub auto-deploy
-  wiring is still open.)
+  (Live at https://kinetic-anatomy-jessy16.vercel.app since 2026-09-28.
+  Fixed 2026-09-29: framework preset was `Other` (build skipped, page 404'd) —
+  set to Next.js and redeployed; Vercel login wall switched off so the URL is
+  public. GitHub repo connected via `vercel git connect`; pushes to `master`
+  auto-deploy to production.)
 - [ ] T-005: Create Supabase project. Fill `.env.local` and Vercel environment variables.
   Done when: a test query from a server component returns without error.
 
