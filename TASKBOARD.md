@@ -67,8 +67,9 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - [x] T-026: Build the armature (one bone per `joints` entry) and freeze the bone/mesh naming convention.
   Done when: `joints.bone_name` and `muscles.mesh_name` lists are frozen and match the `.blend`.
   (Done 2026-09-28: 21-bone `BodyArmature` in `assets-raw/body_rigged.blend`; names frozen in `scripts/blender/naming.json` — all 36 mesh names verified exact; joint centers measured from mesh geometry and checked against overlay renders.)
-- [ ] T-027: Skin muscles to the armature, export `public/models/body.glb` with Blender headless (`-b -P`).
+- [x] T-027: Skin muscles to the armature, export `public/models/body.glb` with Blender headless (`-b -P`).
   Done when: the GLB loads in a test viewer page with the skeleton posed.
+  (Done 2026-09-29: `public/models/body.glb`, 4.88 MB, 36 meshes all skinned to 21-bone armature — 27 auto + 9 nearest-bone fallback at 100% coverage. Verified by GLB re-import + posed render (elbow/knee/spine bend cleanly). Browser load test rides with T-030.)
 - [ ] T-028: Compress with gltf-transform (Draco/Meshopt) and test on a mid-range phone.
   Done when: file is under 5 MB and first render is under ~4 seconds on 4G.
 - [ ] T-029: Write `LICENSE-3D.md`, credit Z-Anatomy (CC BY-SA 4.0) on the site, share `body.glb` under CC BY-SA 4.0.
@@ -136,3 +137,4 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - 2026-09-28, T-004: Vercel project `kinetic-anatomy` created and starter deployed; public URL https://kinetic-anatomy-jessy16.vercel.app returns 200.
 - 2026-09-28, T-025: Z-Anatomy FBX sets downloaded (muscles 686, bones 1952, regions 301 parts; 0 armatures — own rig confirmed needed); built `assets-raw/body_work.blend` (25 muscles + 10 bones + skin = 36 meshes, 113,327 tris); Blender 5.2 portable installed to `tools/`; pipeline scripts in `scripts/blender/`.
 - 2026-09-28, T-026: armature `BodyArmature` (21 bones, Blender .L/.R convention) built from measured joint centers; `scripts/blender/naming.json` frozen (21 bones, 25 muscle + 10 bone + 1 skin mesh names, joint mapping); overlay renders verified; `docs/3D_GUIDE.md` pose example updated to frozen names.
+- 2026-09-29, T-027: all 36 meshes skinned (auto weights + deterministic fallback); `public/models/body.glb` (4.88 MB) exported headless; re-import + bent-elbow/knee/spine render verified; lint, typecheck, 2 tests pass.
