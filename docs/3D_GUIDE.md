@@ -27,6 +27,17 @@ Bone names use the frozen convention in `scripts/blender/naming.json`
 (Blender-style `.L` / `.R` side suffixes, e.g. `UpLeg.L`).
 `q` is a quaternion `[x, y, z, w]`. Quaternions blend smoothly (slerp). Angles in degrees are converted to quaternions in `src/lib/pose/`.
 
+## Web name warning (read before T-032 / T-050)
+`GLTFLoader` runs every node name through three.js
+`PropertyBinding.sanitizeNodeName`: spaces become `_` and the characters
+`[ ] . : /` are removed. In the browser our `Forearm.L` bone is therefore
+called `ForearmL`, while `Spine` is unchanged (verified against the live
+`body.glb` on 2026-09-29: all 21 bones present, dots stripped).
+Pose and muscle code must always translate frozen names with
+`toSceneName()` in `src/lib/pose/applyPose.ts` before looking anything up.
+Also note one Blender mesh can draw as several three.js parts when it uses
+several materials (live file: 36 named meshes draw as ~236 parts).
+
 ## Muscle colors (suggested)
 - primary: red-orange
 - stabilizer: yellow

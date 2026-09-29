@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { describe, expect, it } from "vitest";
 
-import { applyBends, countModel, degreesToRadians } from "./applyPose";
+import { applyBends, countModel, degreesToRadians, toSceneName } from "./applyPose";
 import { TEST_BENDS, TestPoseSchema } from "./types";
 
 describe("TestPoseSchema", () => {
@@ -20,11 +20,24 @@ describe("TestPoseSchema", () => {
   });
 });
 
+describe("toSceneName", () => {
+  it("strips dots the way GLTFLoader does", () => {
+    expect(toSceneName("Forearm.L")).toBe("ForearmL");
+    expect(toSceneName("Leg.L")).toBe("LegL");
+  });
+
+  it("leaves dot-free names unchanged", () => {
+    expect(toSceneName("Spine")).toBe("Spine");
+    expect(toSceneName("QuadricepsFemoris")).toBe("QuadricepsFemoris");
+  });
+});
+
 describe("applyBends", () => {
-  it("bends a named bone about its own axis without moving it", () => {
+  it("finds bones by frozen name even though the scene has no dots", () => {
     const root = new THREE.Group();
     const bone = new THREE.Bone();
-    bone.name = "Forearm.L";
+    // GLTFLoader stores "Forearm.L" as "ForearmL"; bends use frozen names.
+    bone.name = "ForearmL";
     bone.position.set(0.2, 0, 1.1);
     root.add(bone);
 

@@ -85,8 +85,8 @@ export function ViewerClient() {
       {report ? (
         <ul className="text-sm text-zinc-600 dark:text-zinc-400">
           <li>
-            Meshes loaded: {report.meshes} (skin + muscles + bones in one
-            file).
+            Model parts drawn: {report.meshes} (skin, muscle, and bone meshes
+            in one file; meshes with several materials draw as several parts).
           </li>
           <li>Bones found: {report.bones}.</li>
           <li>Test pose applied to: {report.posedBones.join(", ")}.</li>

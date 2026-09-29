@@ -19,6 +19,32 @@ export function degreesToRadians(degrees: number): number {
 }
 
 /**
+ * Convert a frozen Blender name (scripts/blender/naming.json) to the name
+ * three.js actually uses in the scene. GLTFLoader runs every node name
+ * through PropertyBinding.sanitizeNodeName: spaces become underscores and
+ * the characters [ ] . : / are removed. So "Forearm.L" is "ForearmL" on
+ * screen, while "Spine" is unchanged. Always look bones and meshes up with
+ * this function, never with the raw frozen name.
+ */
+export function toSceneName(frozenName: string): string {
+  return frozenName.replace(/\s/g, "_").replace(/[\[\].:\/]/g, "");
+}
+
+/**
+ * Index a loaded scene by node name, first match wins (same as
+ * Object3D.getObjectByName traversal order).
+ */
+function indexSceneNames(root: THREE.Object3D): Map<string, THREE.Object3D> {
+  const byName = new Map<string, THREE.Object3D>();
+  root.traverse((child) => {
+    if (child.name !== "" && !byName.has(child.name)) {
+      byName.set(child.name, child);
+    }
+  });
+  return byName;
+}
+
+/**
  * Bend bones in place, on top of their rest orientation.
  * Rotates about the bone's own local axis (the same idea as Blender's
  * pose-mode euler rotation), so rest position and scale are never touched.
@@ -29,8 +55,9 @@ export function applyBends(
 ): ApplyReport {
   const applied: string[] = [];
   const missing: string[] = [];
+  const bySceneName = indexSceneNames(root);
   for (const bend of bends) {
-    const node = root.getObjectByName(bend.bone);
+    const node = bySceneName.get(toSceneName(bend.bone));
     if (node instanceof THREE.Bone) {
       const radians = degreesToRadians(bend.degrees);
       if (bend.axis === "x") {
