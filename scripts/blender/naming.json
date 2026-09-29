@@ -1,0 +1,53 @@
+{
+  "_comment": "FROZEN 2026-09-28 (T-026). Single source of truth for rig names. Bone names must equal joints.bone_name entries; mesh names must equal muscles.mesh_name entries (seeded in T-021). Coordinates in meters, body faces -Y, left side is +X.",
+  "armature": "BodyArmature",
+  "bones": [
+    {"name": "Hips", "head": [0.0, 0.005, 0.9], "tail": [0.0, 0.03, 1.047], "parent": null},
+    {"name": "Spine", "head": [0.0, 0.03, 1.047], "tail": [0.0, 0.06, 1.289], "parent": "Hips"},
+    {"name": "Chest", "head": [0.0, 0.06, 1.289], "tail": [0.0, 0.03, 1.438], "parent": "Spine"},
+    {"name": "Neck", "head": [0.0, 0.03, 1.438], "tail": [0.0, 0.0, 1.56], "parent": "Chest"},
+    {"name": "Head", "head": [0.0, 0.0, 1.56], "tail": [0.0, -0.01, 1.71], "parent": "Neck"},
+    {"name": "Shoulder.L", "head": [0.025, -0.03, 1.425], "tail": [0.185, 0.05, 1.36], "parent": "Chest"},
+    {"name": "Shoulder.R", "head": [-0.025, -0.03, 1.425], "tail": [-0.185, 0.05, 1.36], "parent": "Chest"},
+    {"name": "UpperArm.L", "head": [0.185, 0.05, 1.36], "tail": [0.205, 0.02, 1.08], "parent": "Shoulder.L"},
+    {"name": "UpperArm.R", "head": [-0.185, 0.05, 1.36], "tail": [-0.205, 0.02, 1.08], "parent": "Shoulder.R"},
+    {"name": "Forearm.L", "head": [0.205, 0.02, 1.08], "tail": [0.215, 0.0, 0.9], "parent": "UpperArm.L"},
+    {"name": "Forearm.R", "head": [-0.205, 0.02, 1.08], "tail": [-0.215, 0.0, 0.9], "parent": "UpperArm.R"},
+    {"name": "Hand.L", "head": [0.215, 0.0, 0.9], "tail": [0.215, -0.02, 0.752], "parent": "Forearm.L"},
+    {"name": "Hand.R", "head": [-0.215, 0.0, 0.9], "tail": [-0.215, -0.02, 0.752], "parent": "Forearm.R"},
+    {"name": "UpLeg.L", "head": [0.084, 0.0, 0.885], "tail": [0.072, 0.025, 0.48], "parent": "Hips"},
+    {"name": "UpLeg.R", "head": [-0.084, 0.0, 0.885], "tail": [-0.072, 0.025, 0.48], "parent": "Hips"},
+    {"name": "Leg.L", "head": [0.072, 0.025, 0.48], "tail": [0.078, 0.025, 0.1], "parent": "UpLeg.L"},
+    {"name": "Leg.R", "head": [-0.072, 0.025, 0.48], "tail": [-0.078, 0.025, 0.1], "parent": "UpLeg.R"},
+    {"name": "Foot.L", "head": [0.078, 0.025, 0.1], "tail": [0.078, -0.055, 0.035], "parent": "Leg.L"},
+    {"name": "Foot.R", "head": [-0.078, 0.025, 0.1], "tail": [-0.078, -0.055, 0.035], "parent": "Leg.R"},
+    {"name": "ToeBase.L", "head": [0.078, -0.055, 0.035], "tail": [0.078, -0.125, 0.025], "parent": "Foot.L"},
+    {"name": "ToeBase.R", "head": [-0.078, -0.055, 0.035], "tail": [-0.078, -0.125, 0.025], "parent": "Foot.R"}
+  ],
+  "joint_to_bones": {
+    "ankle": ["Foot.L", "Foot.R"],
+    "knee": ["Leg.L", "Leg.R"],
+    "hip": ["UpLeg.L", "UpLeg.R"],
+    "lumbar-spine": ["Spine"],
+    "thoracic-spine": ["Chest"],
+    "cervical-spine": ["Neck"],
+    "scapulothoracic": ["Shoulder.L", "Shoulder.R"],
+    "shoulder": ["UpperArm.L", "UpperArm.R"],
+    "elbow": ["Forearm.L", "Forearm.R"],
+    "wrist": ["Hand.L", "Hand.R"]
+  },
+  "muscle_meshes": [
+    "GluteusMaximus", "GluteusMedius", "QuadricepsFemoris", "Hamstrings",
+    "AdductorGroup", "Gastrocnemius", "Soleus", "TibialisAnterior",
+    "Iliopsoas", "RectusAbdominis", "ExternalOblique", "InternalOblique",
+    "TransversusAbdominis", "ErectorSpinae", "Multifidus", "LatissimusDorsi",
+    "Trapezius", "Rhomboids", "Deltoid", "PectoralisMajor", "BicepsBrachii",
+    "TricepsBrachii", "ForearmFlexors", "ForearmExtensors", "RotatorCuff"
+  ],
+  "muscle_mesh_note": "DB starter list has 24 muscles; the file has 25 meshes because 'Forearm flexors and extensors' is split into ForearmFlexors + ForearmExtensors. T-021 seed must map one DB row to two mesh names.",
+  "bone_meshes": [
+    "Skull", "SpineCervical", "SpineThoracic", "SpineLumbar", "RibCage",
+    "Pelvis", "UpperLimb_L", "UpperLimb_R", "LowerLimb_L", "LowerLimb_R"
+  ],
+  "skin_mesh": "Skin"
+}

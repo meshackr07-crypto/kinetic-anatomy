@@ -17,12 +17,14 @@
 {
   "version": 1,
   "bones": {
-    "LeftUpLeg":  { "q": [0.0, 0.0, 0.0, 1.0] },
-    "LeftLeg":    { "q": [0.0, 0.0, 0.0, 1.0] },
-    "Hips":       { "q": [0.0, 0.0, 0.0, 1.0], "position": [0, 0.75, 0] }
+    "UpLeg.L":  { "q": [0.0, 0.0, 0.0, 1.0] },
+    "Leg.L":    { "q": [0.0, 0.0, 0.0, 1.0] },
+    "Hips":     { "q": [0.0, 0.0, 0.0, 1.0], "position": [0, 0, 0] }
   }
 }
 ```
+Bone names use the frozen convention in `scripts/blender/naming.json`
+(Blender-style `.L` / `.R` side suffixes, e.g. `UpLeg.L`).
 `q` is a quaternion `[x, y, z, w]`. Quaternions blend smoothly (slerp). Angles in degrees are converted to quaternions in `src/lib/pose/`.
 
 ## Muscle colors (suggested)

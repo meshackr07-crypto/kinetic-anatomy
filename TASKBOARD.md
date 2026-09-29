@@ -63,8 +63,9 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - [x] T-025: Download Z-Anatomy FBX parts (Drive `.blend` skipped — repo FBX is scriptable), keep skin + 25 muscle meshes + 10 bone meshes, decimate.
   Done when: cleaned `.blend` opens with named meshes; asset recorded in `docs/CONTENT_GUIDE.md`.
   (Done 2026-09-28: `assets-raw/body_work.blend`, 36 meshes, 113,327 tris — slightly over the 100k target, second pass at T-028. Previews verified by render.)
-- [ ] T-026: Build the armature (one bone per `joints` entry) and freeze the bone/mesh naming convention.
+- [x] T-026: Build the armature (one bone per `joints` entry) and freeze the bone/mesh naming convention.
   Done when: `joints.bone_name` and `muscles.mesh_name` lists are frozen and match the `.blend`.
+  (Done 2026-09-28: 21-bone `BodyArmature` in `assets-raw/body_rigged.blend`; names frozen in `scripts/blender/naming.json` — all 36 mesh names verified exact; joint centers measured from mesh geometry and checked against overlay renders.)
 - [ ] T-027: Skin muscles to the armature, export `public/models/body.glb` with Blender headless (`-b -P`).
   Done when: the GLB loads in a test viewer page with the skeleton posed.
 - [ ] T-028: Compress with gltf-transform (Draco/Meshopt) and test on a mid-range phone.
@@ -133,3 +134,4 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - 2026-09-28, D-1 research: `docs/3D_MODEL_PLAN.md` written (Z-Anatomy CC BY-SA 4.0 recommended; no model downloaded); pipeline tasks T-025–T-029 added under Phase 3.
 - 2026-09-28, T-004: Vercel project `kinetic-anatomy` created and starter deployed; public URL https://kinetic-anatomy-jessy16.vercel.app returns 200.
 - 2026-09-28, T-025: Z-Anatomy FBX sets downloaded (muscles 686, bones 1952, regions 301 parts; 0 armatures — own rig confirmed needed); built `assets-raw/body_work.blend` (25 muscles + 10 bones + skin = 36 meshes, 113,327 tris); Blender 5.2 portable installed to `tools/`; pipeline scripts in `scripts/blender/`.
+- 2026-09-28, T-026: armature `BodyArmature` (21 bones, Blender .L/.R convention) built from measured joint centers; `scripts/blender/naming.json` frozen (21 bones, 25 muscle + 10 bone + 1 skin mesh names, joint mapping); overlay renders verified; `docs/3D_GUIDE.md` pose example updated to frozen names.
