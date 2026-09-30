@@ -99,8 +99,11 @@ export default function Home() {
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-1 px-6 py-6 text-sm text-zinc-500">
           <span>Kinetic Anatomy — anatomy you can move.</span>
           <span>
-            3D body adapted from Z-Anatomy (CC BY-SA 4.0). Full license page
-            coming soon.
+            3D body adapted from Z-Anatomy (CC BY-SA 4.0).{" "}
+            <Link href="/licenses" className="underline">
+              Licenses
+            </Link>
+            .
           </span>
         </div>
       </footer>
