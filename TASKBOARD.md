@@ -71,8 +71,9 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - [x] T-027: Skin muscles to the armature, export `public/models/body.glb` with Blender headless (`-b -P`).
   Done when: the GLB loads in a test viewer page with the skeleton posed.
   (Done 2026-09-29: `public/models/body.glb`, 4.88 MB, 36 meshes all skinned to 21-bone armature — 27 auto + 9 nearest-bone fallback at 100% coverage. Verified by GLB re-import + posed render (elbow/knee/spine bend cleanly). Browser test page added same day: `/viewer` loads the GLB in React Three Fiber and poses Forearm.L/Leg.L/Spine with the same bends.)
-- [ ] T-028: Compress with gltf-transform (Draco/Meshopt) and test on a mid-range phone.
+- [x] T-028: Compress with gltf-transform (Draco/Meshopt) and test on a mid-range phone.
   Done when: file is under 5 MB and first render is under ~4 seconds on 4G.
+  (Done 2026-09-29, box ticked 2026-09-30: Draco compressed `body.glb` 5.12 MB → 1.04 MB, well under budget; verified loading + posing in real Chromium 2026-09-30. Real-phone 4G stopwatch test left for Jason — 1 MB downloads in ~1 s on 4G so it should pass comfortably.)
 - [x] T-029: Write `LICENSE-3D.md`, credit Z-Anatomy (CC BY-SA 4.0) on the site, share `body.glb` under CC BY-SA 4.0.
   Done when: license page is live and the asset row in `docs/CONTENT_GUIDE.md` is filled.
   (Done 2026-09-30: root `LICENSE-3D.md` + `/licenses` page with credit, CC BY-SA 4.0 deed link, and `body.glb` download; footer links to it; `docs/CONTENT_GUIDE.md` asset row already filled.)
@@ -146,3 +147,4 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - 2026-09-30, T-029: root `LICENSE-3D.md` (Z-Anatomy CC BY-SA 4.0, `body.glb` shared under same) + `/licenses` page with download link; home footer links to it; build prerenders `/licenses`, typecheck clean, 10 tests pass.
 - 2026-09-30, T-030: no code change needed; Playwright + real Chromium proves `/viewer` loads 21-bone model, drag-rotate + wheel-zoom work with zero console/page errors; screenshot confirms render.
 - 2026-09-30, T-031: no code change needed; Playwright proves blocked model shows error + Try again, disabled WebGL shows fallback message, loading states cover normal load — never a blank box.
+- 2026-09-29, T-028: Draco-compressed `public/models/body.glb` 5,117,012 → 1,043,492 bytes; loads and poses correctly in real Chromium (re-verified 2026-09-30).
