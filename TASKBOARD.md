@@ -80,8 +80,9 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - [x] T-030: Load one rigged `.glb` human in a React Three Fiber canvas with orbit controls and lights.
   Done when: user can rotate and zoom the body at 60 fps on a laptop. Needs D-1.
   (Done 2026-09-30: verified in real Chromium via Playwright — model loads, 21 bones, test pose on all 3 bones, drag-rotate + wheel-zoom with zero console/page errors, screenshot confirms render. Headless fps is software rendering so not representative; Jason to confirm smooth drag on his laptop — 113k tris is light for any laptop GPU.)
-- [ ] T-031: Loading state, error state, and a fallback message if WebGL is unavailable.
+- [x] T-031: Loading state, error state, and a fallback message if WebGL is unavailable.
   Done when: viewer never leaves a blank box.
+  (Done 2026-09-30: verified in real Chromium via Playwright — blocked model shows "failed to load" + Try again button; disabled WebGL shows the unsupported message with zero errors; loading/progress states shown during normal load.)
 - [ ] T-032: Pose engine. Apply a pose (bone rotations as JSON) to the skeleton.
   Done when: a hard-coded "horse stance" pose displays correctly.
 - [ ] T-033: Smooth transition between two poses (quaternion slerp).
