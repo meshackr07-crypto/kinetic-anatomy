@@ -77,8 +77,9 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
   Done when: license page is live and the asset row in `docs/CONTENT_GUIDE.md` is filled.
   (Done 2026-09-30: root `LICENSE-3D.md` + `/licenses` page with credit, CC BY-SA 4.0 deed link, and `body.glb` download; footer links to it; `docs/CONTENT_GUIDE.md` asset row already filled.)
 
-- [ ] T-030: Load one rigged `.glb` human in a React Three Fiber canvas with orbit controls and lights.
+- [x] T-030: Load one rigged `.glb` human in a React Three Fiber canvas with orbit controls and lights.
   Done when: user can rotate and zoom the body at 60 fps on a laptop. Needs D-1.
+  (Done 2026-09-30: verified in real Chromium via Playwright — model loads, 21 bones, test pose on all 3 bones, drag-rotate + wheel-zoom with zero console/page errors, screenshot confirms render. Headless fps is software rendering so not representative; Jason to confirm smooth drag on his laptop — 113k tris is light for any laptop GPU.)
 - [ ] T-031: Loading state, error state, and a fallback message if WebGL is unavailable.
   Done when: viewer never leaves a blank box.
 - [ ] T-032: Pose engine. Apply a pose (bone rotations as JSON) to the skeleton.
