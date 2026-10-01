@@ -25,7 +25,7 @@
 ```
 Bone names use the frozen convention in `scripts/blender/naming.json`
 (Blender-style `.L` / `.R` side suffixes, e.g. `UpLeg.L`).
-`q` is a quaternion `[x, y, z, w]`. Quaternions blend smoothly (slerp). Angles in degrees are converted to quaternions in `src/lib/pose/`.
+`q` is a quaternion `[x, y, z, w]`. Quaternions blend smoothly (slerp). Angles in degrees are converted to quaternions in `src/lib/pose/`. Stored quaternions are offsets FROM the model's rest orientation: the engine remembers each bone's rest pose and sets final rotation = rest followed by the offset, so small angles always mean small moves (and re-applying a pose is exact).
 
 ## Web name warning (read before T-032 / T-050)
 `GLTFLoader` runs every node name through three.js

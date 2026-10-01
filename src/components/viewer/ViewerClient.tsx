@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 
+import type { Pose } from "../../lib/pose/types";
 import type { ModelReport } from "./BodyModel";
 
 const BodyViewer = dynamic(
@@ -30,7 +31,7 @@ type ViewerStatus = "checking" | "ready" | "unsupported" | "failed";
  * One component the page imports. Handles every non-3D state
  * (checking, no WebGL, load failure) around the 3D canvas.
  */
-export function ViewerClient() {
+export function ViewerClient({ pose }: { pose?: Pose }) {
   const [status, setStatus] = useState<ViewerStatus>("checking");
   const [report, setReport] = useState<ModelReport | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -81,7 +82,7 @@ export function ViewerClient() {
 
   return (
     <div className="flex flex-col gap-3">
-      <BodyViewer onReady={handleReady} onError={handleError} />
+      <BodyViewer onReady={handleReady} onError={handleError} pose={pose} />
       {report ? (
         <ul className="text-sm text-zinc-600 dark:text-zinc-400">
           <li>
@@ -89,7 +90,7 @@ export function ViewerClient() {
             in one file; meshes with several materials draw as several parts).
           </li>
           <li>Bones found: {report.bones}.</li>
-          <li>Test pose applied to: {report.posedBones.join(", ")}.</li>
+          <li>Pose applied to: {report.posedBones.join(", ")}.</li>
           {report.missingBones.length > 0 ? (
             <li>Missing bones: {report.missingBones.join(", ")}.</li>
           ) : null}
@@ -98,8 +99,8 @@ export function ViewerClient() {
         <p>Posing the skeleton…</p>
       )}
       <p className="text-sm text-zinc-600 dark:text-zinc-400">
-        Drag to rotate. Scroll or pinch to zoom. Look at the left elbow and
-        left knee: they are bent to prove the muscles follow the bones.
+        Drag to rotate. Scroll or pinch to zoom. The body holds a horse
+        stance: wide feet, deep bent knees, fists chambered at the waist.
       </p>
     </div>
   );

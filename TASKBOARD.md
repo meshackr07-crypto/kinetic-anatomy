@@ -84,8 +84,9 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - [x] T-031: Loading state, error state, and a fallback message if WebGL is unavailable.
   Done when: viewer never leaves a blank box.
   (Done 2026-09-30: verified in real Chromium via Playwright — blocked model shows "failed to load" + Try again button; disabled WebGL shows the unsupported message with zero errors; loading/progress states shown during normal load.)
-- [ ] T-032: Pose engine. Apply a pose (bone rotations as JSON) to the skeleton.
+- [x] T-032: Pose engine. Apply a pose (bone rotations as JSON) to the skeleton.
   Done when: a hard-coded "horse stance" pose displays correctly.
+  (Done 2026-10-01: quaternion Pose JSON per docs/3D_GUIDE (versioned, Zod-validated), degrees→quaternion authoring, rest-relative apply (idempotent, blending-ready); HORSE_STANCE (13 bones + 30 cm hips drop) verified by screenshot: wide flat feet, bent knees over feet, lowered hips, fists at waist. Fixed real bug: absolute-set broke bones with non-identity rest (arms flew sideways); axis semantics documented in poses.ts.)
 - [ ] T-033: Smooth transition between two poses (quaternion slerp).
   Done when: switching poses animates in about 0.6 seconds with no jumping.
 - [ ] T-034: Mobile performance pass: cap pixel ratio, compress model (Draco/Meshopt), lazy load.
@@ -148,3 +149,4 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - 2026-09-30, T-030: no code change needed; Playwright + real Chromium proves `/viewer` loads 21-bone model, drag-rotate + wheel-zoom work with zero console/page errors; screenshot confirms render.
 - 2026-09-30, T-031: no code change needed; Playwright proves blocked model shows error + Try again, disabled WebGL shows fallback message, loading states cover normal load — never a blank box.
 - 2026-09-29, T-028: Draco-compressed `public/models/body.glb` 5,117,012 → 1,043,492 bytes; loads and poses correctly in real Chromium (re-verified 2026-09-30).
+- 2026-10-01, T-032: pose engine (`Pose` schema, `poseFromBends`, rest-relative idempotent `applyPose`, `HORSE_STANCE` + `makePose`) with 8 new tests; `/viewer` shows the horse stance; typecheck clean, 18 tests pass, production build clean.

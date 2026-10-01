@@ -4,9 +4,9 @@ import Link from "next/link";
 import { ViewerClient } from "@/components/viewer/ViewerClient";
 
 export const metadata: Metadata = {
-  title: "3D test viewer | Kinetic Anatomy",
+  title: "Horse stance viewer | Kinetic Anatomy",
   description:
-    "Test page: the rigged body model with a bent elbow, knee, and spine.",
+    "Test page: the rigged body model holding a horse stance pose.",
 };
 
 export default function ViewerPage() {
@@ -15,11 +15,11 @@ export default function ViewerPage() {
       <Link href="/" className="text-sm underline">
         ← Back home
       </Link>
-      <h1 className="text-2xl font-semibold">3D test viewer (T-027)</h1>
+      <h1 className="text-2xl font-semibold">Horse stance (pose engine test)</h1>
       <p className="text-zinc-600 dark:text-zinc-400">
-        This page loads the real body model built for this project and bends
-        three joints, so you can see the muscles follow the bones. It is a
-        technical test, not a lesson yet.
+        This page loads the real body model built for this project and sets
+        the full skeleton from a pose file: wide feet, bent knees, lowered
+        hips, fists at the waist. It is a technical test, not a lesson yet.
       </p>
       <ViewerClient />
     </main>
