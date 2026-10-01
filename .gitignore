@@ -37,6 +37,9 @@ yarn-error.log*
 /assets-raw/
 /tools/
 
+# private reference material (academy file, stance photos) - design reference only, never commit
+/references/
+
 # vercel
 .vercel
 
