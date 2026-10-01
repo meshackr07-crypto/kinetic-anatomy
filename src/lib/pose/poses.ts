@@ -74,3 +74,13 @@ export const HORSE_STANCE: Pose = makePose(
   HORSE_STANCE_BENDS,
   HORSE_STANCE_HIPS_DROP,
 );
+
+/**
+ * Standing at rest: every offset is identity, so the engine renders the
+ * model's untouched rest pose. The transition demo (T-033) blends between
+ * this and HORSE_STANCE.
+ */
+export const STANDING: Pose = PoseSchema.parse({
+  version: 1,
+  bones: { Hips: { q: [0, 0, 0, 1], position: [0, 0, 0] } },
+});

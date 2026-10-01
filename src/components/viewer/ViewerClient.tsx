@@ -3,7 +3,8 @@
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 
-import type { Pose } from "../../lib/pose/types";
+import { HORSE_STANCE, STANDING } from "../../lib/pose/poses";
+import { TRANSITION_MS, useAnimatedPose } from "../../lib/pose/useAnimatedPose";
 import type { ModelReport } from "./BodyModel";
 
 const BodyViewer = dynamic(
@@ -29,12 +30,15 @@ type ViewerStatus = "checking" | "ready" | "unsupported" | "failed";
 
 /**
  * One component the page imports. Handles every non-3D state
- * (checking, no WebGL, load failure) around the 3D canvas.
+ * (checking, no WebGL, load failure) around the 3D canvas, plus the
+ * stance switcher: picking a stance animates the body to it (T-033).
  */
-export function ViewerClient({ pose }: { pose?: Pose }) {
+export function ViewerClient() {
   const [status, setStatus] = useState<ViewerStatus>("checking");
   const [report, setReport] = useState<ModelReport | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [stance, setStance] = useState<"horse" | "standing">("horse");
+  const pose = useAnimatedPose(stance === "horse" ? HORSE_STANCE : STANDING);
 
   useEffect(() => {
     setStatus(isWebGLAvailable() ? "ready" : "unsupported");
@@ -82,6 +86,23 @@ export function ViewerClient({ pose }: { pose?: Pose }) {
 
   return (
     <div className="flex flex-col gap-3">
+      <div className="flex gap-2" role="group" aria-label="Stance">
+        {(["horse", "standing"] as const).map((name) => (
+          <button
+            key={name}
+            type="button"
+            onClick={() => setStance(name)}
+            aria-pressed={stance === name}
+            className={
+              stance === name
+                ? "rounded-full bg-foreground px-5 py-2 text-sm font-medium text-background"
+                : "rounded-full border border-solid border-black/[.08] px-5 py-2 text-sm font-medium dark:border-white/[.145]"
+            }
+          >
+            {name === "horse" ? "Horse stance" : "Standing"}
+          </button>
+        ))}
+      </div>
       <BodyViewer onReady={handleReady} onError={handleError} pose={pose} />
       {report ? (
         <ul className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -99,8 +120,8 @@ export function ViewerClient({ pose }: { pose?: Pose }) {
         <p>Posing the skeleton…</p>
       )}
       <p className="text-sm text-zinc-600 dark:text-zinc-400">
-        Drag to rotate. Scroll or pinch to zoom. The body holds a horse
-        stance: wide feet, deep bent knees, fists chambered at the waist.
+        Drag to rotate. Scroll or pinch to zoom. Switching stances animates
+        the body over about {Math.round(TRANSITION_MS / 100) / 10} seconds.
       </p>
     </div>
   );
