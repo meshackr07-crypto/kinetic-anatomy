@@ -100,8 +100,9 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
   Done when: admin builds a stance visually and reloads it identically.
 - [ ] T-041: Create first 10 stances from D-3, each with name, description, and pose.
   Done when: each stance renders and passes a visual check by the reviewer.
-- [ ] T-042: Stance page combines 3D viewer + info panel + stance list on the side.
+- [~] T-042: Stance page combines 3D viewer + info panel + stance list on the side.
   Done when: clicking a stance animates the body to it.
+  (In progress 2026-10-01: first slice live — landing page embeds the viewer with Horse/Standing switch (animates); dark + gold academy theme (Oswald/Work Sans) per reference file. Still missing: info panel + stance list side panel.)
 - [ ] T-043: Stance-to-stance transitions (e.g. guard to front kick chamber) as a short animation sequence.
   Done when: a sequence plays, pauses, and scrubs.
 
