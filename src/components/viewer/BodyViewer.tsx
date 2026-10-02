@@ -4,6 +4,7 @@ import { Component, Suspense, type ErrorInfo, type ReactNode } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useProgress } from "@react-three/drei";
 
+import type { MuscleMapping } from "../../lib/pose/muscles";
 import type { Pose } from "../../lib/pose/types";
 import { BodyModel, type ModelReport } from "./BodyModel";
 
@@ -52,10 +53,11 @@ interface BodyViewerProps {
   onReady: (report: ModelReport) => void;
   onError: (message: string) => void;
   pose?: Pose;
+  roles?: MuscleMapping;
 }
 
 /** The whole 3D canvas: lights, orbit controls, and the posed body. */
-export function BodyViewer({ onReady, onError, pose }: BodyViewerProps) {
+export function BodyViewer({ onReady, onError, pose, roles }: BodyViewerProps) {
   return (
     <div className="relative h-[70vh] w-full overflow-hidden rounded-lg bg-zinc-950">
       <ViewerErrorBoundary onError={onError}>
@@ -68,7 +70,7 @@ export function BodyViewer({ onReady, onError, pose }: BodyViewerProps) {
           <hemisphereLight args={["#ffffff", "#3f3f46", 0.9]} />
           <directionalLight position={[2, 4, 3]} intensity={1.6} />
           <Suspense fallback={null}>
-            <BodyModel onReady={onReady} pose={pose} />
+            <BodyModel onReady={onReady} pose={pose} roles={roles} />
           </Suspense>
           <OrbitControls
             makeDefault

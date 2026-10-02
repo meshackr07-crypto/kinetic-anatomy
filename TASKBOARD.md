@@ -108,8 +108,9 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 
 ## Phase 5: Anatomy layer
 
-- [ ] T-050: Muscle highlighting. Color muscle meshes by role: primary, stabilizer, stretched.
+- [x] T-050: Muscle highlighting. Color muscle meshes by role: primary, stabilizer, stretched.
   Done when: selecting a stance highlights the mapped muscles.
+  (Done 2026-10-02: `MuscleMapping` per stance + emissive-glow engine (originals restored, clones disposed, re-apply safe); legend + draft caption on landing; horse stance colors 11/11 mapped meshes, standing colors 3/3. Fixed real bug: GLB multi-primitive meshes arrive as Groups, so the engine descends into named nodes. Mapping is DRAFT pending D-2 reviewer.)
 - [ ] T-051: Click a muscle to see its name, action, attachments, and how it works in this stance.
   Done when: panel opens with reviewed content.
 - [ ] T-052: Joint load indicators (angle, common stress notes).
@@ -155,3 +156,4 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - 2026-10-01, T-032: pose engine (`Pose` schema, `poseFromBends`, rest-relative idempotent `applyPose`, `HORSE_STANCE` + `makePose`) with 8 new tests; `/viewer` shows the horse stance; typecheck clean, 18 tests pass, production build clean.
 - 2026-10-01, T-033: `blendPoses` + `easeInOut` + `useAnimatedPose` (600 ms) with 5 new tests; `/viewer` stance buttons animate horse↔standing; typecheck clean, 23 tests pass, production build clean, browser round trip with zero errors.
 - 2026-10-01, T-034: demand rendering + invalidate on model/pose change (no new tests — covered by browser proof); typecheck clean, 23 tests pass, production build clean, browser load/drag/switch with zero errors.
+- 2026-10-02, T-050: muscle highlighting (`muscles.ts` mapping + glow engine, `muscles.test.ts` 8 tests); legend + draft note on landing; lint/typecheck clean, 31 tests pass, production build clean, browser shows colored muscles for both stances with zero errors.

@@ -6,6 +6,11 @@ import { useGLTF } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 
 import { applyPose } from "../../lib/pose/applyPose";
+import {
+  applyMuscleRoles,
+  resetMuscleColors,
+  type MuscleMapping,
+} from "../../lib/pose/muscles";
 import { HORSE_STANCE } from "../../lib/pose/poses";
 import type { Pose } from "../../lib/pose/types";
 
@@ -22,13 +27,20 @@ interface BodyModelProps {
   onReady: (report: ModelReport) => void;
   /** Defaults to the horse stance (T-032). */
   pose?: Pose;
+  /** Muscle highlights (T-050). Omitted = no highlights. */
+  roles?: MuscleMapping;
 }
 
 /**
- * Loads the rigged body and sets the skeleton from a pose
- * (absolute rotations, so stance-to-stance blending stays exact).
+ * Loads the rigged body, sets the skeleton from a pose
+ * (absolute rotations, so stance-to-stance blending stays exact),
+ * then colors working muscles by role.
  */
-export function BodyModel({ onReady, pose = HORSE_STANCE }: BodyModelProps) {
+export function BodyModel({
+  onReady,
+  pose = HORSE_STANCE,
+  roles,
+}: BodyModelProps) {
   const gltf = useGLTF(BODY_GLB_URL);
   // On-demand rendering (T-034): the canvas only draws a frame when asked,
   // so an idle page sips battery instead of spinning the GPU at 60 fps.
@@ -65,6 +77,9 @@ export function BodyModel({ onReady, pose = HORSE_STANCE }: BodyModelProps) {
       ),
     );
     const result = applyPose(gltf.scene, pose);
+    if (roles !== undefined) {
+      applyMuscleRoles(gltf.scene, roles);
+    }
     let meshes = 0;
     gltf.scene.traverse((child) => {
       if (child instanceof THREE.Mesh) {
@@ -82,12 +97,13 @@ export function BodyModel({ onReady, pose = HORSE_STANCE }: BodyModelProps) {
         bone.quaternion.copy(saved.quaternion);
         bone.position.copy(saved.position);
       });
+      resetMuscleColors(gltf.scene);
     };
-  }, [gltf, onReady, pose]);
+  }, [gltf, onReady, pose, roles]);
 
   useEffect(() => {
     invalidate();
-  }, [gltf, pose, invalidate]);
+  }, [gltf, pose, roles, invalidate]);
 
   return (
     <group>

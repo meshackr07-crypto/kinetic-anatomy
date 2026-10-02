@@ -3,9 +3,22 @@
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 
+import {
+  HORSE_STANCE_MUSCLES,
+  MUSCLE_DRAFT_NOTE,
+  MUSCLE_ROLE_COLORS,
+  STANDING_MUSCLES,
+  type MuscleRole,
+} from "../../lib/pose/muscles";
 import { HORSE_STANCE, STANDING } from "../../lib/pose/poses";
 import { TRANSITION_MS, useAnimatedPose } from "../../lib/pose/useAnimatedPose";
 import type { ModelReport } from "./BodyModel";
+
+const LEGEND: { role: MuscleRole; label: string }[] = [
+  { role: "primary", label: "Driving" },
+  { role: "stabilizer", label: "Steadying" },
+  { role: "stretched", label: "Lengthened" },
+];
 
 const BodyViewer = dynamic(
   () => import("./BodyViewer").then((mod) => mod.BodyViewer),
@@ -39,6 +52,7 @@ export function ViewerClient() {
   const [error, setError] = useState<string | null>(null);
   const [stance, setStance] = useState<"horse" | "standing">("horse");
   const pose = useAnimatedPose(stance === "horse" ? HORSE_STANCE : STANDING);
+  const roles = stance === "horse" ? HORSE_STANCE_MUSCLES : STANDING_MUSCLES;
 
   useEffect(() => {
     // Deferred one frame: reads the browser's real WebGL support after
@@ -108,7 +122,28 @@ export function ViewerClient() {
           </button>
         ))}
       </div>
-      <BodyViewer onReady={handleReady} onError={handleError} pose={pose} />
+      <div
+        className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-zinc-600 dark:text-zinc-400"
+        aria-label="Muscle legend"
+      >
+        {LEGEND.map(({ role, label }) => (
+          <span key={role} className="inline-flex items-center gap-2">
+            <i
+              aria-hidden
+              className="inline-block h-3 w-3 rounded-full"
+              style={{ backgroundColor: MUSCLE_ROLE_COLORS[role] }}
+            />
+            {label}
+          </span>
+        ))}
+        <span className="text-xs text-zinc-500">{MUSCLE_DRAFT_NOTE}</span>
+      </div>
+      <BodyViewer
+        onReady={handleReady}
+        onError={handleError}
+        pose={pose}
+        roles={roles}
+      />
       {report ? (
         <ul className="text-sm text-zinc-600 dark:text-zinc-400">
           <li>
