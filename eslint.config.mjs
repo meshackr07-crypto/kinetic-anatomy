@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local-only folders, never app code: portable Blender install,
+    // raw 3D working files, and private reference material.
+    "tools/**",
+    "assets-raw/**",
+    "references/**",
   ]),
 ]);
 

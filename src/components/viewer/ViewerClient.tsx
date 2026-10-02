@@ -41,7 +41,12 @@ export function ViewerClient() {
   const pose = useAnimatedPose(stance === "horse" ? HORSE_STANCE : STANDING);
 
   useEffect(() => {
-    setStatus(isWebGLAvailable() ? "ready" : "unsupported");
+    // Deferred one frame: reads the browser's real WebGL support after
+    // mount (SSR has no canvas), then settles the status exactly once.
+    const frame = requestAnimationFrame(() => {
+      setStatus(isWebGLAvailable() ? "ready" : "unsupported");
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   const handleReady = useCallback((next: ModelReport) => {
