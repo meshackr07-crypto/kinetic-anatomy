@@ -1,8 +1,9 @@
 "use client";
 
-import { useLayoutEffect, useMemo } from "react";
+import { useEffect, useLayoutEffect, useMemo } from "react";
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 
 import { applyPose } from "../../lib/pose/applyPose";
 import { HORSE_STANCE } from "../../lib/pose/poses";
@@ -29,6 +30,11 @@ interface BodyModelProps {
  */
 export function BodyModel({ onReady, pose = HORSE_STANCE }: BodyModelProps) {
   const gltf = useGLTF(BODY_GLB_URL);
+  // On-demand rendering (T-034): the canvas only draws a frame when asked,
+  // so an idle page sips battery instead of spinning the GPU at 60 fps.
+  // Orbit drags re-render via drei's controls; a new model or pose needs
+  // this explicit nudge after it is applied above.
+  const invalidate = useThree((s) => s.invalidate);
 
   const helper = useMemo(
     () => new THREE.SkeletonHelper(gltf.scene),
@@ -78,6 +84,10 @@ export function BodyModel({ onReady, pose = HORSE_STANCE }: BodyModelProps) {
       });
     };
   }, [gltf, onReady, pose]);
+
+  useEffect(() => {
+    invalidate();
+  }, [gltf, pose, invalidate]);
 
   return (
     <group>

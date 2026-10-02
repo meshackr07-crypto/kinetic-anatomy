@@ -90,8 +90,9 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - [x] T-033: Smooth transition between two poses (quaternion slerp).
   Done when: switching poses animates in about 0.6 seconds with no jumping.
   (Done 2026-10-01: `blendPoses` slerp per bone + position lerp (missing bone = rest, exact endpoints), eased `useAnimatedPose` hook (600 ms wall-clock, interruption-safe, StrictMode-safe); `/viewer` has Horse/Standing buttons. Verified in real Chromium: both endpoints render, round trip clean, zero errors. Perceptual smoothness to be confirmed on Jason's laptop — headless SwiftShader runs ~3 fps so it can't show motion.)
-- [ ] T-034: Mobile performance pass: cap pixel ratio, compress model (Draco/Meshopt), lazy load.
+- [x] T-034: Mobile performance pass: cap pixel ratio, compress model (Draco/Meshopt), lazy load.
   Done when: model file is under 5 MB and runs smoothly on a mid-range phone.
+  (Done 2026-10-01: model already 1.04 MB Draco (T-028); added `frameloop="demand"` so an idle page draws nothing (battery/thermals), with explicit invalidate on model/pose change — orbit drags re-render via drei. DPR cap [1,2] and lazy dynamic import verified in place. Proven in real Chromium: load, drag-rotate, and stance switch all render with zero errors. Real mid-range-phone check left for Jason.)
 
 ## Phase 4: Stances
 
@@ -152,3 +153,4 @@ Status words: `[ ]` to do, `[~]` in progress, `[x]` done, `[!]` blocked (write w
 - 2026-09-29, T-028: Draco-compressed `public/models/body.glb` 5,117,012 → 1,043,492 bytes; loads and poses correctly in real Chromium (re-verified 2026-09-30).
 - 2026-10-01, T-032: pose engine (`Pose` schema, `poseFromBends`, rest-relative idempotent `applyPose`, `HORSE_STANCE` + `makePose`) with 8 new tests; `/viewer` shows the horse stance; typecheck clean, 18 tests pass, production build clean.
 - 2026-10-01, T-033: `blendPoses` + `easeInOut` + `useAnimatedPose` (600 ms) with 5 new tests; `/viewer` stance buttons animate horse↔standing; typecheck clean, 23 tests pass, production build clean, browser round trip with zero errors.
+- 2026-10-01, T-034: demand rendering + invalidate on model/pose change (no new tests — covered by browser proof); typecheck clean, 23 tests pass, production build clean, browser load/drag/switch with zero errors.

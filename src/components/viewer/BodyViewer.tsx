@@ -59,7 +59,11 @@ export function BodyViewer({ onReady, onError, pose }: BodyViewerProps) {
   return (
     <div className="relative h-[70vh] w-full overflow-hidden rounded-lg bg-zinc-950">
       <ViewerErrorBoundary onError={onError}>
-        <Canvas dpr={[1, 2]} camera={{ position: [0.5, 0.85, 3.4], fov: 40 }}>
+        <Canvas
+          dpr={[1, 2]}
+          frameloop="demand"
+          camera={{ position: [0.5, 0.85, 3.4], fov: 40 }}
+        >
           <color attach="background" args={["#09090b"]} />
           <hemisphereLight args={["#ffffff", "#3f3f46", 0.9]} />
           <directionalLight position={[2, 4, 3]} intensity={1.6} />
